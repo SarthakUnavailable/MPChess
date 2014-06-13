@@ -1,0 +1,101 @@
+#board {
+    height: 400px;
+    width: 400px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: black;
+}
+ 
+#details{
+    height: 50px;
+    width: 400px;
+    background: green;
+    margin: 100px;
+} 
+
+#boarddetails{
+    height: 100px;
+    width:200px;
+    background: green;
+    margin-right:50px;
+    margin-left: 500px;
+    margin-top:-599px;
+}
+#board .column {
+    height: 50px;
+    width: 50px;
+    background: #FCFECC;
+    float: left;
+    font-size: 45px;
+    cursor:pointer;
+}
+.divborder 
+{
+    border-style:solid;
+    border-color:blue;
+    border-width:1px; 
+}
+
+#board .column.dark {
+    background: #8C5244;
+}
+ 
+#board .column div {
+    height: 50px;
+    width: 50px;
+}
+ 
+#board .column .WHITE_KING {
+    background: url(' images/wking.png');
+}
+ 
+#board .column .WHITE_QUEEN {
+    background: url(' images/wqueen.png');
+}
+ 
+#board .column .WHITE_ROOK {
+    background: url(' images/wrook.png');
+}
+ 
+#board .column .WHITE_BISHOP {
+    background: url('images/wbishop.png');
+}
+ 
+#board .column .WHITE_KNIGHT {
+    background: url(' images/wknight.png');
+}
+ 
+#board .column .WHITE_PAWN {
+    background: url(' images/wpawn.png');
+}
+ 
+ 
+#board .column .BLACK_KING {
+    background: url(' images/bking.png');
+}
+ 
+#board .column .BLACK_QUEEN {
+    background: url(' images/bqueen.png');
+}
+ 
+#board .column .BLACK_ROOK {
+    background: url(' images/brook.png');
+}
+ 
+#board .column .BLACK_BISHOP {
+    background: url(' images/bbishop.png');
+}
+ 
+#board .column .BLACK_KNIGHT {
+    background: url(' images/bknight.png');
+}
+ 
+#board .column .BLACK_PAWN {
+    background: url(' images/bpawn.png');
+}
+ 
+#board .column .EMPTY {
+    background: none;
+    cursor: default;
+}
+
