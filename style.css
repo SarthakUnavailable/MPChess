@@ -21,6 +21,18 @@
     margin-left: 500px;
     margin-top:-599px;
 }
+
+
+#turn{
+    height: 50px;
+    width:  50px;
+    background: red;
+    margin-right:50px;
+    margin-left: 900px;
+    margin-top:299px;
+}
+
+
 #board .column {
     height: 50px;
     width: 50px;
