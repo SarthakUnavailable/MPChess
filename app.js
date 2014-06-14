@@ -21,6 +21,7 @@ var board = [[BLACK_ROOK, BLACK_KNIGHT, BLACK_BISHOP, BLACK_QUEEN, BLACK_KING, B
              [WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN, WHITE_PAWN],
              [WHITE_ROOK, WHITE_KNIGHT, WHITE_BISHOP, WHITE_QUEEN, WHITE_KING, WHITE_BISHOP, WHITE_KNIGHT, WHITE_ROOK]];
 
+
 var click_count=0,move_count=0;
 var from=[],to=[];
 var oldtarget,newtarget;
@@ -153,23 +154,23 @@ function validate_piece(from,to,piece)                                      //Al
             break;
         case 'WHITE_QUEEN':
         case 'BLACK_QUEEN':
-            if(row_diff===column_diff || to[0]===from[0] || to[1]===from[1])
+            if((row_diff===column_diff || to[0]===from[0] || to[1]===from[1]) && isPathValid(from,to,piece))
               return 1;
             else
               return 0;
             break;
         case 'WHITE_ROOK':
-        case 'BLACK_ROOK':
-            if((to[0]===from[0] || to[1]===from[1]) && collision_piece(from,to,piece))                      //only horizontal/vertical movement
+        case 'BLACK_ROOK':  
+            if((to[0]===from[0] || to[1]===from[1]) && isPathValid(from,to,piece))                      //only horizontal/vertical movement
               return 1;
             else
               return 0;
             break;
         case 'WHITE_BISHOP':
         case 'BLACK_BISHOP':
-            if(row_diff===column_diff)      //only diagonal movement
+            if((row_diff===column_diff) && isPathValid(from,to,piece))     //only diagonal movement
                 return 1;
-            else
+            else 
                 return 0;
             break;
         case 'WHITE_KNIGHT':
@@ -268,17 +269,104 @@ function change(from,to,piece)
     var str1;
 }
 
-function collision_piece(from,to,piece)
+function isPathValid(from,to,piece)
 {
     var row_diff,column_diff;
-    if(from[0]-to[0]>0)
+    var direction;
+    var i=-1,j=-1,incr_j,incr_i;
+    row_diff=to[0]-from[0];
+    column_diff=to[1]-from[1];
+    if(row_diff<0)                          //positive direction, i.e, upwards
     {
-        for(var i=from[0]-1;i>to[0];i--)
+        i=from[0]-1;
+        if(column_diff===0)                 //vertical upwards
         {
-            if(board[i][to[1]])
-                return false;
+            j=from[1];                 board[i][j]
+            incr_j=0;
+        }
+        else if(column_diff>0)              //right diagonal upwards
+        {   
+            j=from[1] + 1;
+            incr_j=1;
+        }
+        else                                //left diagonal upwards
+        {  
+            j=from[1] - 1;                      //j is for column
+            incr_j=-1;                            
         }
     }
+    else if(row_diff>0)                     //negative direction
+    {
+        i=from[0]+1;
+        if(column_diff===0)                 //vertical downwards
+        {  
+            j=from[1];
+            incr_j=0;
+        }
+        else if(column_diff>0)              //left diagonal downwards
+        {
+            j=from[1]+1;
+            incr_j=1;
+        }
+        else             //right diagonal downwards
+        {
+            j=from[1]-1;
+            incr_j=-1;
+        }
+    }
+   else                                 //row_diff=0 => horizontal movement
+    {
+        i=from[0];
+        if(column_diff>0)               //horizontal right
+        {
+            j=from[1]+1;
+            incr_j=1;
+        }
+        else                            //horizontal left
+        {
+            j=from[1]-1;
+            incr_j=-1;
+        }
+
+    }
+
+
+    if(row_diff<0)
+    {
+        while(i>to[0])
+        {
+            if(board[i][j])
+            {
+                $("#boarddetails").html("Invalid move. i= "+i+" j= "+ j);
+                return false;
+            }
+            i--;
+            j+=incr_j;
+        }
+    }
+    else if(row_diff>0)
+    {
+        while(i<to[0])
+        {
+            if(board[i][j])
+            {
+                $("#boarddetails").html("Invalid move. i= "+i+" j= "+ j);
+                return false;
+            }
+            i++;
+            j+=incr_j;
+        }
+    }
+    else                                            //horizontal
+    {
+    
+    }
+    //else
+    //{
+    //    while(j>)
+    //}
+    
+
 
     return true;
 }
